@@ -6,8 +6,7 @@ class Movie(models.Model):
     price = models.IntegerField()
     description = models.TextField()
     image = models.ImageField(upload_to='movie_images/')
-    likes = models.IntegerField(default=0)  # NEW FIELD
-    
+
     def __str__(self):
         return str(self.id) + ' - ' + self.name
     

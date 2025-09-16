@@ -2,10 +2,6 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Movie, Review
 from django.contrib.auth.decorators import login_required
  
-def top_comments(request):
-    # Order by date descending to show the newest (top) comments first
-    reviews = Review.objects.select_related("user", "movie").order_by("-date")[:20]
-    return render(request, "movies/top_comments.html", {"reviews": reviews})
 
 def index(request):
     search_term = request.GET.get('search')
@@ -69,11 +65,5 @@ def delete_review(request, id, review_id):
         user=request.user)
     review.delete()
     return redirect('movies.show', id=id)
-
-def top_comments_by_likes(request):
-    # Show top 20 reviews ranked by likes_count (highest first)
-    reviews = Review.objects.select_related("user", "movie").order_by("-likes_count")[:20]
-    return render(request, "movies/top_comments_likes.html", {"reviews": reviews})
- 
 
 
