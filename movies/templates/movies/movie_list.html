@@ -1,0 +1,33 @@
+# path: movies/templates/movies/movie_list.html
+{% extends "base.html" %}
+{% block content %}
+<h1>All Movies</h1>
+
+<div class="movies-grid">
+  {% for movie in movies %}
+    {# skip hidden movies #}
+    {% if user.is_authenticated and movie in user.hidden_movies.all %}
+      {# don’t render hidden movies here #}
+    {% else %}
+      <div class="movie-card">
+        <h3>{{ movie.name }}</h3>
+        <p>${{ movie.price }}</p>
+
+        <form method="post" action="{% url 'movies:toggle_hide' movie.pk %}" style="display:inline;">
+          {% csrf_token %}
+          <input type="hidden" name="next" value="{{ request.get_full_path }}">
+          <button type="submit">
+            {% if user.is_authenticated and movie in user.hidden_movies.all %}
+              Un-hide
+            {% else %}
+              Hide
+            {% endif %}
+          </button>
+        </form>
+      </div>
+    {% endif %}
+  {% empty %}
+    <p>No movies available.</p>
+  {% endfor %}
+</div>
+{% endblock %}

@@ -34,10 +34,17 @@
             <img src="{{ movie.image.url }}"
             class="card-img-top rounded img-card-200">
           <div class="card-body text-center">
-            <a href="{% url 'movies.show' id=movie.id %}"
+            <a href="{% url 'movies:show' id=movie.id %}"
               class="btn bg-dark text-white">
               {{ movie.name }}
             </a>
+            {% if user.is_authenticated %}
+            <form method="post" action="{% url 'movies:toggle_hide' movie.pk %}" class="mt-2">
+              {% csrf_token %}
+              <input type="hidden" name="next" value="{% url 'movies:index' %}">
+              <button type="submit" class="btn btn-outline-secondary btn-sm">Hide</button>
+            </form>
+            {% endif %}
           </div>
         </div>
       </div>

@@ -1,0 +1,22 @@
+# path: movies/templates/movies/hidden_movies.html
+{% extends "base.html" %}
+{% block content %}
+<h1>Hidden Movies</h1>
+
+{% if movies %}
+  <ul>
+    {% for movie in movies %}
+      <li>
+        {{ movie.name }} — ${{ movie.price }}
+        <form method="post" action="{% url 'movies:toggle_hide' movie.pk %}" style="display:inline;">
+          {% csrf_token %}
+          <input type="hidden" name="next" value="{% url 'movies:hidden_movies' %}">
+          <button type="submit">Un-hide</button>
+        </form>
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>You haven’t hidden any movies.</p>
+{% endif %}
+{% endblock %}

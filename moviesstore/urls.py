@@ -22,9 +22,10 @@ from django.conf import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('home.urls')),
-    path('movies/', include('movies.urls')),
+    path('movies/', include(('movies.urls', 'movies'), namespace='movies')),
     path('accounts/', include('accounts.urls')),
     path('cart/', include('cart.urls')),
+    # removed duplicate movies include at root
 ]
 
 urlpatterns += static(settings.MEDIA_URL,

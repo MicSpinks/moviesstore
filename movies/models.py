@@ -6,6 +6,12 @@ class Movie(models.Model):
     price = models.IntegerField()
     description = models.TextField()
     image = models.ImageField(upload_to='movie_images/')
+    hidden_by = models.ManyToManyField(
+        User,
+        related_name='hidden_movies',
+        blank=True,
+        help_text='Users who hid this movie'
+    )
 
     def __str__(self):
         return str(self.id) + ' - ' + self.name
