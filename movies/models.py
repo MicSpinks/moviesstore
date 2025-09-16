@@ -22,22 +22,5 @@ class Review(models.Model):
     def __str__(self):
         return str(self.id) + ' - ' + self.movie.name
     
-class Director(models.Model):
-    name = models.CharField(max_length=200)
-    birth_year = models.IntegerField()
-    nationality = models.CharField(max_length=100)
 
-    def __str__(self):
-        return self.name
-
-class Like(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    review = models.ForeignKey(Review, on_delete=models.CASCADE)
-    created_at = models.DateTimeField(auto_now_add=True)
-    
-    class Meta:
-        unique_together = ('user', 'review')  # Prevent duplicate likes
-    
-    def __str__(self):
-        return f"{self.user.username} likes {self.review.id}"
 
