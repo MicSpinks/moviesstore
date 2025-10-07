@@ -25,7 +25,7 @@ urlpatterns = [
     path('movies/', include(('movies.urls', 'movies'), namespace='movies')),
     path('accounts/', include('accounts.urls')),
     path('cart/', include('cart.urls')),
-    # removed duplicate movies include at root
+    path("petitions/", include("petitions.urls")),
 ]
 
 urlpatterns += static(settings.MEDIA_URL,
