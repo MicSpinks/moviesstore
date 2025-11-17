@@ -13,6 +13,14 @@ class Movie(models.Model):
         help_text='Users who hid this movie'
     )
 
+    # Users who added this movie to their wishlist/favorites
+    wishlisted_by = models.ManyToManyField(
+        User,
+        related_name='wishlist',
+        blank=True,
+        help_text='Users who wishlisted this movie'
+    )
+
     def __str__(self):
         return str(self.id) + ' - ' + self.name
     

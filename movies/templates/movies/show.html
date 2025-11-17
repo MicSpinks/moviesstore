@@ -16,6 +16,16 @@
           <button type="submit" class="btn btn-outline-secondary btn-sm">Hide</button>
           <a href="{% url 'movies:hidden_movies' %}" class="btn btn-link btn-sm">Hidden Movies</a>
         </form>
+        <form method="post" action="{% url 'movies:toggle_wishlist' template_data.movie.id %}" class="mb-3">
+          {% csrf_token %}
+          <input type="hidden" name="next" value="{% url 'movies:show' id=template_data.movie.id %}">
+          {% if user in template_data.movie.wishlisted_by.all %}
+            <button type="submit" class="btn btn-outline-success btn-sm">Remove from Wishlist</button>
+          {% else %}
+            <button type="submit" class="btn btn-outline-primary btn-sm">Add to Wishlist</button>
+          {% endif %}
+          <a href="{% url 'movies:wishlist' %}" class="btn btn-link btn-sm">Wishlist</a>
+        </form>
         {% endif %}
                         <p class="card-text">
           <form method="post"

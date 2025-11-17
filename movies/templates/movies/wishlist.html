@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Your Wishlist</h1>
+
+{% if movies %}
+  <ul>
+    {% for movie in movies %}
+      <li>
+        {{ movie.name }} — ${{ movie.price }}
+        <form method="post" action="{% url 'movies:toggle_wishlist' movie.pk %}" style="display:inline;">
+          {% csrf_token %}
+          <input type="hidden" name="next" value="{% url 'movies:wishlist' %}">
+          <button type="submit">Remove from Wishlist</button>
+        </form>
+        <a href="{% url 'movies:show' id=movie.id %}">View</a>
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>Your wishlist is empty.</p>
+{% endif %}
+{% endblock %}

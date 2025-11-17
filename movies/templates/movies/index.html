@@ -44,6 +44,15 @@
               <input type="hidden" name="next" value="{% url 'movies:index' %}">
               <button type="submit" class="btn btn-outline-secondary btn-sm">Hide</button>
             </form>
+            <form method="post" action="{% url 'movies:toggle_wishlist' movie.pk %}" class="mt-2">
+              {% csrf_token %}
+              <input type="hidden" name="next" value="{% url 'movies:index' %}">
+              {% if user in movie.wishlisted_by.all %}
+                <button type="submit" class="btn btn-outline-success btn-sm">♥ In Wishlist</button>
+              {% else %}
+                <button type="submit" class="btn btn-outline-primary btn-sm">♡ Add to Wishlist</button>
+              {% endif %}
+            </form>
             {% endif %}
           </div>
         </div>

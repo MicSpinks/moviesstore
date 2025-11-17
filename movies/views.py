@@ -21,6 +21,24 @@ def hidden_movies(request):
     return render(request, 'movies/hidden_movies.html', {'movies': movies})
 
 
+@login_required
+def toggle_wishlist(request, pk):
+    movie = get_object_or_404(Movie, pk=pk)
+    if request.method == "POST":
+        if request.user in movie.wishlisted_by.all():
+            movie.wishlisted_by.remove(request.user)   # remove from wishlist
+        else:
+            movie.wishlisted_by.add(request.user)      # add to wishlist
+    next_url = request.POST.get('next') or request.META.get('HTTP_REFERER') or reverse('movies:wishlist')
+    return redirect(next_url)
+
+
+@login_required
+def wishlist(request):
+    movies = request.user.wishlist.all()
+    return render(request, 'movies/wishlist.html', {'movies': movies})
+
+
 def index(request):
     search_term = request.GET.get('search')
     if search_term:

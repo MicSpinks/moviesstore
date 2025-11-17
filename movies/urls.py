@@ -16,4 +16,7 @@ urlpatterns = [
     # Hidden movies and toggle
     path('hidden/', views.hidden_movies, name='hidden_movies'),
     path('<int:pk>/toggle_hide/', views.toggle_hide, name='toggle_hide'),
+    # Wishlist (favorites)
+    path('wishlist/', views.wishlist, name='wishlist'),
+    path('<int:pk>/toggle_wishlist/', views.toggle_wishlist, name='toggle_wishlist'),
 ]
