@@ -108,7 +108,12 @@
         {% endif %}
       </div>
       <div class="col-md-6 mx-auto mb-3 text-center">
-        <img src="{{ template_data.movie.image.url }}" class="rounded img-card-400" />
+        {% if template_data.movie.image %}
+          <img src="{{ template_data.movie.image.url }}" class="rounded img-card-400" />
+        {% else %}
+          {% load static %}
+          <img src="{% static 'img/logo.png' %}" class="rounded img-card-400" />
+        {% endif %}
       </div>
     </div>
   </div>
