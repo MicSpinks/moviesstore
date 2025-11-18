@@ -35,7 +35,7 @@ def toggle_wishlist(request, pk):
 
 @login_required
 def wishlist(request):
-    movies = request.user.wishlist.all()
+    movies = request.user.wishlist.all().order_by('name')
     return render(request, 'movies/wishlist.html', {'movies': movies})
 
 
